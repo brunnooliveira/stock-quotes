@@ -28,8 +28,11 @@ public class QuoteGenerator {
         sink.next(state.getT1());
         return Tuples.of(state.getT2(), createNewQuote(state.getT1()));
       })
-      .delaySubscription(Duration.ofMillis(30000))
-      .subscribe(log::info);
+      .delaySubscription(Duration.ofMillis(3000))
+      .delayElements(Duration.ofMillis(1000))
+      .subscribe();
+//          .subscribe(log::info);
+
   }
 
   private Quote createNewQuote(Quote previousQuote) {
