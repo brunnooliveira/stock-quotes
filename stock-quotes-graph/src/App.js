@@ -1,9 +1,10 @@
 import './App.css';
+import LineChart from './views/LineChart';
 
 function App() {
   return (
     <div>
-      Gráfico teste 1
+      <LineChart />
     </div>
   );
 }
