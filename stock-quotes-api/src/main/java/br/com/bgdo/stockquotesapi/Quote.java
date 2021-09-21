@@ -1,22 +1,24 @@
 package br.com.bgdo.stockquotesapi;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "quote")
-@Data
+
 @Builder
-@AllArgsConstructor
+@Table("quote")
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Quote {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String symbol;
   private Double openValue;
   private Double closeValue;
-  private Date timestamp;
+  private LocalDateTime timestamp;
 }
