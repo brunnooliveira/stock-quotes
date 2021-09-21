@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import CanvasJSReact from '../assets/canvasjs.react';
+import { getChart } from '../services/api';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 var openValues = [];
@@ -13,8 +14,27 @@ class LineChart extends Component {
   componentDidMount() {
     setInterval(this.updateChart, 1000);
   }
-  updateChart() {
-    console.log('teste');
+  async fetchData() {
+    const result = await getChart();
+    const data = result.data;
+    console.log(data);
+
+    openValues.push({
+      x: new Date(data.timestamp),
+      y: data.openValue,
+    });
+
+    if (openValues.length > 10) openValues.shift();
+
+    closeValues.push({
+      x: new Date(data.timestamp),
+      y: data.closeValue,
+    });
+    if (closeValues.length > 10) closeValues.shift();
+  }
+  async updateChart() {
+    await this.fetchData();
+    this.chart.render();
   }
   render() {
     const options = {

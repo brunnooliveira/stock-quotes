@@ -13,17 +13,19 @@ class CanvasJSChart extends Component {
           width: '100%',
           position: 'relative',
         };
-    this.containerProps = props.containerProps.height
-      ? props.containerProps.height
-      : this.options.height
-      ? this.options.height + 'px'
-      : '400px';
+    this.containerProps.height =
+      props.containerProps && props.containerProps.height
+        ? props.containerProps.height
+        : this.options.height
+        ? this.options.height + 'px'
+        : '400px';
+
     this.chatContainerId =
       'canvasjs-react-chart-container-' + CanvasJSChart._cjsContainerId++;
   }
 
   componentDidMount() {
-    this.chart = new CanvasJS.chart(this.chatContainerId, this.options);
+    this.chart = new CanvasJS.Chart(this.chatContainerId, this.options);
     this.chart.render();
     if (this.props.onRef) this.props.onRef(this);
   }
@@ -39,7 +41,7 @@ class CanvasJSChart extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.options !== nextState.options;
+    return !(nextProps.options === this.options);
   }
 
   render() {
